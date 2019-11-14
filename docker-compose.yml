@@ -1,0 +1,42 @@
+version: '3.7'
+services: 
+
+  rabbitmq-service:
+    image: rabbitmq:3-management
+    volumes:
+      - './rabbitmq/rabbitmq-home:/var/lib/rabbitmq'
+      - './rabbitmq/rabbitmq-config:/etc/rabbitmq.config'
+      - './rabbitmq/rabbitmq-db:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit'
+    expose:
+      - "5672"
+    ports:
+      - 25672:15672
+      - 6672:5672
+
+  job-service:
+    volumes:
+      - './jobmanager:/usr/src/app'
+    build: ./jobmanager
+    expose:
+      - "4545"
+    ports:
+      - 4545:4545
+  
+#  render-service:
+#    image
+#    volumes:
+    
+  frontend-service:
+    image: "node:8"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./frontend:/home/node/app
+    build: ./frontend
+    expose:
+      - "3000"
+    ports:
+      - 4646:3000
+    command: "npm start"
