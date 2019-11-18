@@ -8,10 +8,11 @@ setup_db()
 
 app = Flask(__name__)
 api = Api(app)
-CORS(app, resources={r"job*": {"origins": "*", "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]}})
+CORS(app, resources={r"*": {"origins": "*", "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]}})
 
 class Job(Resource):
     def post(self):
+        print(request.get_data())
         job = json.loads(request.get_data())
         if 'id' in job.keys() and job['id'] != None:
             return { 'message': 'job in post request should not include id' }, 400, {'Access-Control-Allow-Origin': '*'} 

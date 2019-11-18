@@ -4,13 +4,15 @@ import $ from 'jquery';
 const jobServiceUrl = 'http://localhost:4545/job';
 
 function startJob() {
+  console.log($("#uploadBlendFile").val());
   let jobName = $('#newJobName').val();
   $.ajax({
+    accepts: 'application/json',
     url: jobServiceUrl,
     type: 'POST',
     data:{ 'name': jobName, 'fileId': "asdasdasd", 'status': 0 },
     dataType: 'json',
-    contentType: 'json',
+    contentType: 'application/json',
     success: function(data) {
       console.log(data);
     },
@@ -30,6 +32,7 @@ function checkStatus() {
     url: `${jobServiceUrl}/${jobName}`,
     type: 'GET',
     dataType: 'json',
+    contentType: 'json',
     success: function(data) {
       let statusTxts = [
         'Initiated',

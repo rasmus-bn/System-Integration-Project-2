@@ -27,16 +27,9 @@ services:
 #    volumes:
     
   frontend-service:
-    image: "node:8"
-    user: "node"
-    working_dir: /home/node/app
-    environment:
-      - NODE_ENV=production
     volumes:
       - ./frontend:/home/node/app
     build: ./frontend
-    expose:
-      - "3000"
+    
     ports:
       - 4646:3000
-    command: "npm start"
