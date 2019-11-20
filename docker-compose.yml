@@ -2,11 +2,11 @@ version: '3.7'
 services: 
 
   rabbitmq-service:
-    image: rabbitmq:3-management
     volumes:
       - './rabbitmq/rabbitmq-home:/var/lib/rabbitmq'
       - './rabbitmq/rabbitmq-config:/etc/rabbitmq.config'
       - './rabbitmq/rabbitmq-db:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit'
+    build: ./rabbitmq
     expose:
       - "5672"
     ports:
