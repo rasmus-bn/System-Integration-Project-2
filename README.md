@@ -13,6 +13,8 @@ The project is not functional yet but ideally these are the steps you would have
 
 ## Enterprise Integration patterns used
 
+![alt text](https://raw.githubusercontent.com/rasmus-bn/System-Integration-Project-2/master/files/DSC_0236_1.JPG)
+
 In order to decouple the various components of the application I used the Message Oriented Middleware RabbitMQ. With this tool I implemtented following EIPs:
 
 * **Message Broker**
