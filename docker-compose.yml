@@ -4,7 +4,7 @@ services:
   rabbitmq-service:
     volumes:
       - './rabbitmq/rabbitmq-home:/var/lib/rabbitmq'
-      - './rabbitmq/rabbitmq-config:/etc/rabbitmq.config'
+      - './rabbitmq/rabbitmq-config:/etc/rabbitmq/'
       - './rabbitmq/rabbitmq-db:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit'
     build: ./rabbitmq
     expose:
