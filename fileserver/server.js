@@ -8,7 +8,7 @@ const path = require('path');
 const filesDir = path.join(__dirname, 'filesdir');
 fs.mkdirSync(filesDir, { recursive: true });
 const app = express();
-const port = 3000;
+const port = 4441;
 app.use(bodyParser.json());
 
 const storage = multer.diskStorage({ 

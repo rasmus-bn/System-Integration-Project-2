@@ -6,4 +6,4 @@ COPY . .
 RUN npm install
 RUN npm install ws@3.3.2 --save-dev --save-exact
 
-CMD ["npm", "start"]
+CMD ["node", "server.js"]

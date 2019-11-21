@@ -1,25 +1,27 @@
-const $ = require('jquery');
-
-const open = require('amqplib').connect('amqp://localhost');
 let channel;
 const theQ = 'Render_DoJob';
 const theEx = 'MainTopicEx';
 
-open.then((conn) => {
-    return conn.createChannel();
-}).then((ch) => {
-    channel = ch;
-    return ch.checkQueue(theQ).then(function(ok) {
-        return ch.consume(theQ, function(msg) {
-            if (msg !== null) {
-            console.log(msg.content);
-            const jobId = msg.content.toString();
-            doRender(jobId, msg)
-            channel.ack(msg);
-            }
+setTimeout(() => {
+    const open = require('amqplib').connect('amqp://rabbitmq-service');
+    open.then((conn) => {
+        return conn.createChannel();
+    }).then((ch) => {
+        channel = ch;
+        return ch.checkQueue(theQ).then(function(ok) {
+            return ch.consume(theQ, function(msg) {
+                if (msg !== null) {
+                console.log(msg.content);
+                const jobId = msg.content.toString();
+                doRender(jobId, msg)
+                channel.ack(msg);
+                }
+            });
         });
     });
-});
+    console.log(`Listening on queue ${theQ}`);
+}, 60000);
+
 
 function doRender(jobId, msg) {
     console.log('doRender');
@@ -34,5 +36,3 @@ function doRender(jobId, msg) {
         });
     }, 2000);
 }
-
-console.log(`Listening on queue ${theQ}`);
