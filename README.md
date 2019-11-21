@@ -21,15 +21,20 @@ In order to decouple the various components of the application I used the Messag
 
 * **Message Channel**
 
-    This is pretty much implememnted automatically when connecting to RabbitMQ.
+    This is pretty much implemented when using AMQP with RabbitMQ. Every connection from application to RabbitMQ goes through a channel which allows multiple connections with data going in both 'directions'.
 
+* **Message Router**
 
-Messaging
-Messaging Channel
-Message Router
-Message Broker
-Command Message
-Event Message
+    In my RabbitMQ i have created an exchange of type 'topic'. This means that the queues binded to the exchange can use a Regex-like pattern to match specific messages.
+
+* **Command Message**
+
+    The Job Handler sends a command to the Render service through RabbitMQ. This command contains a job ID and invokes the processing functionality in the render service.
+
+* **Event Message**
+
+    Whenever the status of a job changes the Job Handler announces the status change with a message containing the job ID and the new status value. Maybe someone is listening, maybe not, but the Job Handler sends them out anyway.
+
 
 
 Job status:
